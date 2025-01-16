@@ -15,7 +15,7 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT; // default port to listen
+const port = process.env.PORT; // default port to listen 
 
 const corsOptions = {
    origin: '*',
@@ -34,6 +34,10 @@ const pool = mysql.createPool({
 app.use(cors(corsOptions));
 
 // Makes Express parse the JSON body of any requests and adds the body to the req object
+
+// When doing my project, this might be the reason I was unable to access data from the body object and ended up having to user
+// query parameters instead.
+
 app.use(bodyParser.json());
 
 app.use(async (req, res, next) => {
