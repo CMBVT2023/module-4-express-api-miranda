@@ -41,7 +41,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 app.use(async (req, res, next) => {
-  console.log('This is running in the middlware')
+  console.log('This is running in the middleware')
   try {
     // Connecting to our SQL db. req gets modified and is available down the line in other middleware and endpoint functions
     req.db = await pool.getConnection();
@@ -130,8 +130,9 @@ app.post('/register', async function (req, res) {
       }
     );
 
+
     const jwtEncodedUser = jwt.sign(
-      { userId: user.insertId, username, userIsAdmin: isAdmin },
+      { userId: user.insertId, username },
       process.env.JWT_KEY
     );
 
@@ -164,7 +165,7 @@ app.post('/log-in', async function (req, res) {
       
       const jwtEncodedUser = jwt.sign(payload, process.env.JWT_KEY);
 
-      res.json({ jwt: jwtEncodedUser, success: true });
+      res.json({ jwt: jwtEncodedUser, success: true, username });
     } else {
       res.json({ err: 'Password is wrong', success: false });
     }
